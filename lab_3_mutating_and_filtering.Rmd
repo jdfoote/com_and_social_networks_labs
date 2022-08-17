@@ -19,7 +19,7 @@ set_graph_style() # This sets the default style to the graph style
 ```
 
 
-R has a lot of great tools for working with tables (also called dataframes or tibbles). One really powerful and relatively intuitive set of tools is called the "tidyverse". Tools in the tidyverse make assumptions about what data will look like -- rows represent observations and columns represent variables about that observation.
+R has a lot of great tools for working with tables (also called dataframes or tibbles). One really powerful and relatively intuitive set of tools is called the "tidyverse". Tools in the tidyverse make assumptions about what data will look like---rows represent observations and columns represent variables that describe that observation.
 
 The [tidygraph](https://tidygraph.data-imaginist.com/index.html) package extends that paradigm to networks, by representing networks as two tables: 1) a table of nodes and node attributes and 2) a table of edges and edge attributes.
 
@@ -68,7 +68,7 @@ activate(nodes) %>%
 
 ### Excercise
 
-Modify the code on lines 49-54 to calculate the betweenness centrality instead of the degree of `G`. Name the column `betweenness` (Hint: use the `centrality_betweenness()` function. [Here is the list of all centrality functions](https://tidygraph.data-imaginist.com/reference/centrality.html))
+Modify the code on lines 50-54 to calculate the betweenness centrality instead of the degree of `G`. Name the column `betweenness` (Hint: use the `centrality_betweenness()` function. ([Here is the list of all centrality functions](https://tidygraph.data-imaginist.com/reference/centrality.html).)
 
 ```{r}
 # Your code here
@@ -82,7 +82,7 @@ Note that if we look at `G` again, the `degree` and `betweenness` columns that w
 G
 ```
 
-This is because we didn't save them - by default mutate will just produce a temporary version of the new column. But don't worry - saving it is super easy - we can just re-save it as G like this.
+This is because we didn't save them; by default mutate will just produce a temporary version of the new column. But don't worry---saving it is super easy; we can just re-save it as G like this.
 
 ```{r}
 G <- G %>%
@@ -107,13 +107,13 @@ Do this yourself - add the `betweenness` column to `G`. When you're done, the no
 
 ## Filtering
 
-The one other thing we're going to learn about today is filtering. Sometimes we may want to know just about some of the nodes or edges in a network.
+The one other thing we're going to learn about today is filtering. Sometimes we may want to know about some subset of the nodes or edges in a network.
 
-Usually, we would do this based on some attribute of the nodes - for example, looking just at the network of the older (or younger) members of the group.
+Usually, we would do this based on some attribute of the nodes---for example, looking just at the network of the older (or younger) members of the group.
 
 Let's load in a richer network from the `networkdata` library. (See R Lab 2 for instructions on how to install it if this code doesn't work.)
 
-This code loads the `networkdata` library (it's probably best practice to put this at the top of the file), and then changes it from an `igraph` network to a `tbl_graph` network object.
+This code loads the `networkdata` library and loads the `ht_advice` network. It then changes it from an `igraph` network to a `tbl_graph` network object.
 
 ```{r}
 library(networkdata)
@@ -129,14 +129,14 @@ plot(ht_advice)
 ```
 
 
-Now we're going to filter the graph. Maybe we just want to see the network from the Sales department. Let's pretend like that's department two, and we'll filter to just those nodes.
+Now we're going to filter the graph. Maybe we just want to see the network from the Sales department. Let's pretend like that's department two, and filter to just those nodes.
 
-Remember, we first `activate` the `nodes`. Then, we use `filter` to write a condition or set of conditions that will evaluate as True for each of the nodes that we want to keep. Usually, this will involve one node attribute (like `dept`) and a comparison, like `<`, `>`, or `==`. Note that when we are testing _if_ things are equal, we use two equal signs in R. This is because one equals sign can be used to assign something to a variable.
+Remember, we first `activate` the `nodes`. Then, we use `filter` to write a condition or set of conditions that will evaluate to True for each of the nodes that we want to keep. Usually, this will involve one node attribute (like `dept`) and a comparison, like `<`, `>`, or `==`. Note that when we are testing _if_ things are equal, we use two equal signs in R. This is because one equals sign can be used to assign something to a variable.
 
 ```{r}
 ht_advice %>%
   activate(nodes) %>%
-  filter(dept == 2) %>%
+  filter(dept == 2) %>% # Filter to just nodes in dept 2
   print() %>% # We can throw in print() and it will print the output of the last step. In this case, the filtered graph object.
   plot()
 ```

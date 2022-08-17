@@ -17,7 +17,7 @@ set_graph_style() # This sets the default style to the graph style
 
 ## Two types of aesthetics
 
-There are two main types of aesthetics in `ggraph`: changes that apply to all of the nodes/edges, and changes that differ based on some attribute of the nodes/edges.
+There are two main types of "aesthetics" in `ggraph`: changes that apply to all of the nodes/edges, and changes that differ based on some attribute of the nodes/edges.
 
 For this tutorial, we'll be visualizing data from a 1990 paper on the French financial elite (`ffe`) in the `networkdata` package.
 
@@ -40,7 +40,7 @@ G %>%
 
 ## General aesthetics
 
-We've already learned about the first kind of aesthetics - general aesthetics that apply to the whole graph. Things like changing the size of the nodes or the color of the edges.
+We've already learned about the first kind of aesthetics---general aesthetics that apply to the whole graph. Things like changing the size of the nodes or the color of the edges.
 
 For example, this changes the shape of the nodes to triangles and makes them a bit bigger.
 
@@ -70,6 +70,7 @@ Let's start by figuring out what the attributes of the nodes are in this data.
 ```{r}
 G
 ```
+
 This is rich data! There are 26 different variables, some of which are clear (e.g, `birthdate`) and some of which are confusing (e.g., `topboards` or `igyear`). Let's choose one and visualize it.
 
 Usually, you would want to be guided by a question about the data which would inform your visualizations. Let's pretend like we really want to know whether people form friendships across religions. Let's visualize different religion as different shapes.
@@ -90,7 +91,7 @@ You should get an error that is something like `A continuous variable can not be
 
 ### Exercise
 
-Instead of mapping the shape to the religion, map the color of the nodes to the religion.
+Instead of mapping their shape to `religion`, map the color of the nodes to `religion`.
 
 ```{r}
 # Your code here
@@ -113,11 +114,13 @@ Go back to your code from when we learned about `mutate` and figure out how to c
 
 We can also map the edge aesthetics to variables from our edgelist spreadsheet. The most common approaches are to map the type of the edge to color and the weight of the edge to the `width`, `color`, or `alpha` of the edge.
 
-Looking at our data, the edges don't have weights. For your exercise, we'll put together a few skills.
+Looking at our data, the edges don't have weights. For your exercise, we'll put together a few skills from the last few labs.
 
 ## Exercise
 
-Load the `bkfrab` dataset (also from `networkdata`, so load it in the same way as the `ff_elite` data above). This records how often pairs of subjects were seen talking to each other in a fraternity. Map the `alpha` of the edge to the `weight` in the `edge` dataframe.
+Load the `bkfrab` dataset (also from `networkdata`, so load it in the same way as the `ff_elite` data above). This records how often pairs of subjects were seen talking to each other in a fraternity. Map the `alpha` of the edge to the `weight` in the `edges` dataframe.
+
+Hints: Remember to use `as_tbl_graph` to change the network type, and to `activate` the edges dataframe.
 
 
 ```{r}
@@ -130,8 +133,6 @@ Load the `bkfrab` dataset (also from `networkdata`, so load it in the same way a
 
 
 When we look at the `bkfrab` data, there are a lot of nodes with edge weight 10. Filter to just the edges whose weight is greater than 10, and map the `color` of the edges to their weight.
-
-Hints: Remember to use `as_tbl_graph` to change the network type, and to `activate` the edge dataframe.
 
 ```{r}
 # Your code here

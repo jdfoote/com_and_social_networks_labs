@@ -6,12 +6,12 @@ output:
   word_document: default
 ---
 
-```{r setup}
+```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # import the libraries needed
 library(igraph)
-library(ggraph)
-library(tidygraph)
+library(ggraph) # If you get an error run install.packages('ggraph')
+library(tidygraph) # If you get an error run install.packages('tidygraph')
 library(readxl) # If you get an error run install.packages('tidyverse')
 ```
 
@@ -39,27 +39,28 @@ In Excel (or LibreOffice or Google Sheets) open a new spreadsheet, and create a 
 | John | Axelle | 
 | Axelle | Ida |
 
-Save the spreadsheet to your computer as a .xlsx file and then:
+Save the spreadsheet to your computer as an XLSX file called `edges.xlsx` and then:
 
-1. Click `File > Import Dataset > Excel`
-2. Browse to the file
-3. At the top of the screen under `File/URL` will be the path to the file. It should look something like `~/Desktop/excel_file.xlsx`. Copy the path to your clipboard and click `Cancel`.
-3. Uncomment the code below (remove the `#`) and paste the file path where my code says `~/your/path/here`.
+1. Open `Files` in the bottom right pane, and then `Upload` the file
+2. Click `File > Import Dataset > From Excel`
+3. Browse to the file
+4. At the top of the screen under `File/URL` will be the path to the file. It should look something like `~/Desktop/edges.xlsx`. Copy the path to your clipboard and click `Cancel`.
+5. Uncomment the code below (remove the `#`) and paste the file path where my code says `~/your/path/here`.
 
 ```{r}
 #edgelist <- read_excel("~/your/path/here")
 ```
 
-You might get an error here that says something like `there is no package called 'readxl'`. If you get that, then you need to run `install.packages('tidyverse')` in the console (this is the bottom left window). It will take a while to install, but if it works correctly your code above should work.
+You might get an error here that says something like `there is no package called 'readxl'`. If you get that, then you need to run `install.packages('tidyverse')` in the console (this is in the bottom left window). It will take a while to install, but if it works correctly your code above should work.
 
-To test if everything worked right, uncomment and this code to print out all of the edges in R.
-
-(Note: the "#" symbol "comments out" code - this means that anything after the # will be ignored by R)
+To test if everything worked right, uncomment the following code to print out all of the edges in R.
 
 ```{r}
 
 #print(edgelist)
 ```
+
+(Note: the "#" symbol "comments out" code - this means that anything after the # in a given line will be ignored by R)
 
 ## Excercise
 
@@ -97,14 +98,13 @@ Uncomment and run the following code to check that it worked.
 
 ## Importing into R
 
-Finally, we'll create a network "object" using these files. Right now it's just two "dataframes" (what R calls spreadsheets). Creating a network objects tells R that these represent a network, so that it can create visualizations, get network statistics, etc.
+Finally, we'll create a network "object" using these files. So far, what we've done is take our two spreadsheets, converted them into a format that R can understand (called a `tibble`), and saved them as the variables `edgelist` and `node_atts`. Creating a network objects tells R that these represent a network, so that it can create visualizations, get network statistics, etc.
 
 We do this by running `graph_from_data_frame`. This is a [function](https://www.tutorialspoint.com/r/r_functions.htm) that takes in the arguments `d`, `vertices`, and `directed`. 
 
 * `d` is the edgelist
 * `vertices` is the node attributes
 * `directed` is whether this is a directed or undirected graph.
-* `G <-` saves the network to the variable `G` and then `plot(G)` makes a basic plot of it.
 
 If you've done everything right, then when you uncomment the code below, it should produce a network plot.
 
@@ -113,6 +113,10 @@ If you've done everything right, then when you uncomment the code below, it shou
 #                           vertices = node_atts, directed = T)
 #plot(G)
 ```
+
+The one piece of code from above that we haven't talked about is `G <-`. This saves the network to the variable `G` and then `plot(G)` makes a basic plot of it.
+
+## Tidygraph networks
 
 Finally, to make things even more confusing, for lots of the cool things we'll be doing in future lessons, we need to take one more step, and turn this from a normal network object into a `tidygraph` network object.
 
@@ -133,7 +137,7 @@ Uncomment the code below and run it. If it worked, then you should see a text ou
 
 ## Exercise
 
-See if you can figure out how to add another person to the network (hint: the easiest way to do this is in Excel). Give them node attributes and at least one edge. Use `graph_from_data_frame` to create a network object and `as_tbl_graph` to change it into a `tidygraph` network object.
+See if you can figure out how to add another person to the network (hint: the easiest way to do this is by creating new spreadsheets in Excel, something like `edgelist_2.xlsx` and `node_atts_2.xlsx`). Give the new person node attributes and at least one edge. Use `graph_from_data_frame` to create a new network object and `as_tbl_graph` to change it into a `tidygraph` network object.
 
 Finally, create a new network plot with the new person.
 
@@ -147,10 +151,9 @@ Finally, create a new network plot with the new person.
 
 # Loading data from R packages
 
-There are also R packages which have network data that you can load right into R. One of the biggest fairly simple ones is the  `networkdata` package.
+Now that you've learned the hardest way to load network data, let's learn a few easier ways. One is by loading it from pre-created packages. One of the biggest, fairly straightforward packages is called `networkdata`.
 
-Unfortunately, it's a little bit tricky to do that for this package. Try to run `install.packages("remotes")` in the Console (at the bottom left), and when that is done run `remotes::install_github("schochastics/networkdata")`, also in the console.
-
+Unfortunately, it's a little bit trickier to install this package than other packages. You will need to run `install.packages("remotes")` in the Console (at the bottom left), and when that is done run `remotes::install_github("schochastics/networkdata")`, also in the console.
 
 If it works, then you should be able to load the package when you uncomment the code below.
 
@@ -169,7 +172,7 @@ Now, you will have access to the networks from the package. Run `data(package='n
 
 ## Exercise
 
-Figure out how to load the `ffe_elite` network as a `tidygraph` object, and plot it.
+Figure out how to load the `ffe_elite` network from `newtorkdata` as a `tidygraph` object, and plot it.
 
 ```{r}
 
@@ -193,7 +196,7 @@ plot(G)
 
 ## Excercise
 
-The `play_erdos_renyi()` function above has to parameters, which have the values `20` and `.4`. Try changing the values and observing the result. What do you think each of these parameters do?
+The `play_erdos_renyi()` function above has two parameters, which have the values `20` and `.4`. Try changing the values and observing the result. What do you think each of these parameters do?
 
 
 YOUR ANSWER HERE
