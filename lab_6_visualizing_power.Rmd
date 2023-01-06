@@ -11,7 +11,8 @@ library(tidyverse)
 library(igraph)
 library(tidygraph)
 library(ggraph)
-ggraph::set_graph_style(plot_margin = margin(1,1,1,1), family = 'sans')
+library(networkdata)
+ggraph::set_graph_style(family = 'sans')
 ```
 
 # Visualizing centrality using ggraph
@@ -33,7 +34,7 @@ Degree centrality is simply the number of connections that someone has. For dire
 
 Let's look at different measures of power in the Zachary karate network. There are a few new things going on here, so I'll walk through each line:
 
-* `activate(nodes) %>% mutate(name = 1:34)` adds a column called `name` to the nodes, which consists of the number 1 to 8.
+* `activate(nodes) %>% mutate(name = 1:nrow(.N()))` adds a column called `name` to the nodes, which consists of the number 1 to the number of nodes.
 * `G %>% ggraph()`: Hopefully you know what these lines do---take our graph (`G`) and make it into a `ggraph`
 * `geom_edge_fan(aes(alpha = stat(index)))`: This is where things get a bit tricky. This creates edges using the `geom_edge_fan` style and sets the transparency (`alpha`) of an edge so that it's darkest closest to the `to` node. It's for helping us see the direction of directed edges.
 * `geom_node_point(color = '#ceb888', size = 5)`: This should look familiar. It just sets a color and size for nodes
@@ -41,9 +42,10 @@ Let's look at different measures of power in the Zachary karate network. There a
 * `scale_edge_alpha('Edge direction', guide = 'edge_direction')`: Finally, this lets you adjust the legend. We'll see more examples today and later, but the `scale_` funcions let you change the title of a legend, change the colors used, etc.
 
 ```{r}
-G <- create_notable('Zachary') %>%
+G <- ht_friends %>%
+  as_tbl_graph() %>%
   activate(nodes) %>%
-  mutate(name=1:34)
+  mutate(name=1:nrow(.N()))
 
 G %>%
   ggraph() + 
@@ -108,7 +110,8 @@ Note that there is a `mode` parameter that can be either 'out' for only outgoing
 
 G %>%
   activate(nodes) %>%
-  mutate(centrality = centrality_closeness(mode = 'all')) %>%
+  mutate(centrality = centrality_closeness()) %>%
+  mutate(centrality = replace_na(centrality, 0)) %>%
   ggraph() + 
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(aes(size = centrality), color = '#ceb888') +
@@ -162,7 +165,7 @@ This is actually the basis of Google's original search algorithm, and is part of
 ```{r}
 G %>%
   activate(nodes) %>%
-  mutate(centrality = centrality_eigen()) %>%
+  mutate(centrality = centrality_eigen(directed = TRUE)) %>%
   ggraph() +
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(aes(size = centrality), color = '#ceb888') +
@@ -174,6 +177,9 @@ G %>%
 
 ### Exercise
 
-Why does Node 12 have higher eigenvector centrality than Node 17? What does eigenvector centrality measure about power that other measures miss?
+Why does Node 12 have higher eigenvector centrality than Node 6? Why does node 10 have such low eigenvector centrality? What does eigenvector centrality measure about power that other measures miss?
 
 YOUR ANSWER HERE
+
+
+

@@ -13,6 +13,7 @@ library(igraph)
 library(ggraph) # If you get an error run install.packages('ggraph')
 library(tidygraph) # If you get an error run install.packages('tidygraph')
 library(readxl) # If you get an error run install.packages('tidyverse')
+set_graph_style(family='sans')
 ```
 
 ## The goal

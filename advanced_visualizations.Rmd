@@ -90,7 +90,7 @@ G = G %>%
   unmorph()
 ```
 
-This is a bit silly, as now we have a `university_density` column for each node, which is the same for every node that went to the same university. However, we can use it, for example, to create a bar graph for the density of each university. Again, this is beyond what we covered in class, but basically I'm just getting the density values for each university and plotting them.
+This is a bit silly, as now we have a `university_density` entry for each node, which is the same for every node that went to the same university. However, we can use it, for example, to create a bar graph for the density of each university. Again, this is beyond what we covered in class, but basically I'm just getting the density values for each university and plotting them.
 
 ```{r}
 G %>%
@@ -117,7 +117,7 @@ G %>%
   activate(edges) %>%
   mutate(age_diff = abs(.N()$birthdate[from] - .N()$birthdate[to])) %>%
   ggraph(layout = 'stress') + 
-  geom_edge_fan(aes(color = age_diff), alpha = .3) +
+  geom_edge_fan(aes(color = age_diff), alpha = .4) +
   geom_node_point(aes(color=birthdate), size = 3) + 
   scale_edge_color_viridis()
 ```
@@ -145,7 +145,9 @@ G %>%
   geom_node_point(aes(color = religion), size = 3) + 
   scale_color_viridis()
 ```
+
 If we want to explicitly treat a variable as a factor, then we need to tell the `scale` that this is a discrete variable, like so:
+
 ```{r}
 G %>%
   ggraph(layout = 'stress') + 
@@ -163,6 +165,7 @@ G %>%
   geom_node_point(aes(color = as_factor(religion)), size = 3) + 
   scale_color_manual(values = c("2" = "green", "3" = "orange", "4" = "blue"))
 ```
+
 Finally, you may want to look into `scale_color_brewer`, which gives access to a bunch of great palettes. You can try them out by changing the `palette` parameter. [More info here](https://www.rdocumentation.org/packages/ggplot2/versions/3.3.5/topics/scale_colour_brewer).
 
 Here's a quick example - try changing the `palette` to different numbers.
@@ -189,6 +192,7 @@ G %>%
 ```
 
 We can also add a title to the whole plot if we want. This is another layer.
+
 ```{r}
 G %>%
   ggraph(layout = 'stress') + 

@@ -11,7 +11,7 @@ library(igraph)
 library(tidygraph)
 library(ggraph)
 library(tidyverse)
-set_graph_style() # This sets the default style to the graph style
+set_graph_style(family='sans') # This sets the default style to the graph style
 ```
 
 
@@ -133,6 +133,8 @@ Hints: Remember to use `as_tbl_graph` to change the network type, and to `activa
 
 
 When we look at the `bkfrab` data, there are a lot of nodes with edge weight 10. Filter to just the edges whose weight is greater than 10, and map the `color` of the edges to their weight.
+
+Note that this will leave a lot of nodes without any edges. The default `'stress'` layout puts them along the bottom, which looks kind of odd. You may want to use a layout like `'fr'` instead.
 
 ```{r}
 # Your code here

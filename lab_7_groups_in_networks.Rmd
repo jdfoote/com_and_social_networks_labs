@@ -88,7 +88,7 @@ This attribute of networks means that components are rarely very interesting as 
 ```{r}
 # Don't worry about understanding this code - it's basically just plotting 
 # different densities of random graphs
-set.seed(11)
+#set.seed(12)
 for(p in c(.02, .05, .08, .10)){
   G = random.graph.game(50, p) %>% as_tbl_graph()
   plot <- G %>%
