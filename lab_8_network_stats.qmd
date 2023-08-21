@@ -1,9 +1,7 @@
 ---
 title: "Calculating Network Statistics"
 author: "Your Name Here"
-output:
-  html_document:
-    df_print: paged
+format: pdf
 ---
 
 ```{r setup, include=FALSE}

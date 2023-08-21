@@ -1,9 +1,7 @@
 ---
 title: "Mutating and filtering"
-output:
-  html_document: default
-  pdf_document: default
-  word_document: default
+author: "Your name here"
+format: pdf
 ---
 
 We start with a "setup" block of code, that loads our libraries and initializes our settings. This block should work for basically all of our assignments this semester, so you can just copy and paste it.

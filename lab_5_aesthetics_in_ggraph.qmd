@@ -1,6 +1,7 @@
 ---
 title: 'Aesthetics in ggraph'
-output: html_document
+author: "Your name here"
+format: pdf
 ---
 
 

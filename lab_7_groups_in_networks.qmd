@@ -1,6 +1,7 @@
 ---
 title: "Groups in Networks"
-output: html_document
+author: "Your name here"
+format: pdf
 ---
 
 ```{r setup, include=FALSE}

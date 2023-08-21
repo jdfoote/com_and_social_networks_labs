@@ -1,5 +1,6 @@
 ---
 title: "Creating Networks"
+author: "Your name here"
 format: pdf
 ---
 
