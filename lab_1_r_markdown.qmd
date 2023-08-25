@@ -68,18 +68,11 @@ There are two steps to using a package. First, you need to install it. This down
 
 Step two is to load it into R from your computer. This brings it into R so that R can use it. This is done with the `library` command.
 
+Hopefully everything worked and you already installed the packages that you will need. Let's check.
+
 ### Exercise
 
-Install the igraph package by copying and pasting the code below into the console (the bottom left pane of RStudio) and hitting `Enter`
-
-`install.packages("igraph")`
-
-It should show a bunch of crazy messages while it installs, and take a couple of minutes. If it worked, then at the end it should say something like
-```
-DONE (igraph)
-```
-near the end, with no scary error messages.
-
+Try to load the igraph library. To do this, create a new code block and copy and paste the following into it: `library(igraph)`. Then run the code. If it works, you should see a message that says `Attaching package: ‘igraph’`. If you don't see that message, then you need to install the package. To do that, run the following code in an R terminal at the bottom of VSCode. To get to an R terminal, just click `Run Cell` on one of the code cells above. Then, in the R terminal type: `install.packages('igraph')`.
 
 ### Exercise
 
