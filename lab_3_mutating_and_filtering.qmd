@@ -46,8 +46,8 @@ For example, the code below activates the node table and then uses `mutate` (whi
 (Note that the code throughout this tutorial uses "[pipes](https://r4ds.had.co.nz/pipes.html?q=pipe#pipes)". Pipes (`%>%`) let you express a sequence of operations, by taking the output of the previous operation and using it as the input of the next operation.)
 
 ```{r}
-G %>%
-  activate(nodes) %>%
+G |>
+  activate(nodes) |>
   mutate(degree = centrality_degree())
   
 ```

@@ -80,7 +80,9 @@ Now that igraph is installed, let's create our first network graph!!
 
 Create a new code block, and copy and paste the following into it, and then run it. Note that the first line, `library(igraph)` loads the `igraph` package into R. The next few lines create a random network and then make a simple plot of it.
 
-`library(igraph)`
+```
+library(igraph)
 
-`G = erdos.renyi.game(10, .6)`
-`plot(G)`
+G = erdos.renyi.game(10, .6)
+plot(G)
+```
