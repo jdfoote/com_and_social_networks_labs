@@ -4,6 +4,8 @@ author: "Your name here"
 format: pdf
 ---
 
+This first cell is setup code. It loads a bunch of libraries that we will use later on, so you will need to run this cell before your run any other cells.
+
 ```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # import the libraries needed
@@ -48,11 +50,13 @@ Uncomment the code below (by deleting the # symbol) and run it.
 
 You might get an error here that says something like `there is no package called 'readxl'`. If you get that, then you need to run `install.packages('tidyverse')` in the console (this is in the bottom window). It will take a while to install, but if it works correctly your code above should work.
 
+You may also get an error that's something like `could not find function "read_excel"`. If you get that, then you need to run the cell at the top of this page (the one that starts with `knitr::opts_chunk$set(echo = TRUE)`). This will load the libraries that we need to run the rest of the code.
+
 To test if everything worked right, uncomment the following code to show all of the edges in R.
 
 ```{r}
 
-#View(edgelist)
+#edgelist
 ```
 
 (Note: the "#" symbol "comments out" code - this means that anything after the # in a given line will be ignored by R)
@@ -78,7 +82,7 @@ Again, save it to this folder, as `node_atts.xlsx`.
 Here is my import code, which should work if you saved it to this folder:
 
 ```{r}
-#library(readxl)
+
 #node_atts <- read_excel("./node_atts.xlsx")
 ```
 
@@ -86,7 +90,7 @@ Uncomment and run the following code to check that it worked.
 
 ```{r}
 
-#View(node_atts)
+#node_atts
 ```
 
 
