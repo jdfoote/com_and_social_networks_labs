@@ -12,7 +12,7 @@ The text is written in [markdown](https://rmarkdown.rstudio.com/authoring_pandoc
 
 ## Making documents
 
-You can either interact with Quarto files within VSCode or "render" them into finished documents. To create a finished document, click the "Render" button in VSCode. 
+You can either interact with Quarto files within VSCode or "render" them into finished documents. To create a finished document, click the "Preview" button in VSCode. 
 
 ### Exercise
 
@@ -25,7 +25,7 @@ Create a new paragraph explaining what you hope to get out of this class. Create
 
 ## Excecuting Code
 
-When you execute code within VSCode, the code runs in the terminal. If there is visual output, then it will appear in a pane to the left. 
+When you execute code within VSCode, the code runs in the terminal. If there is visual output, then it will appear in a pane to the right. 
 
 Try executing this chunk by clicking *Run Cell* or by placing your cursor inside the code chunk it and pressing `Ctrl+Shift+Enter`. 
 

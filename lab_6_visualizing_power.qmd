@@ -33,22 +33,23 @@ The construct of network power has many facets and over the years social network
 
 Degree centrality is simply the number of connections that someone has. For directed networks, indegree can be interpreted as popularity and outdegree as gregariousness.
 
-Let's look at different measures of power in the Zachary karate network. There are a few new things going on here, so I'll walk through each line:
+Let's look at different measures of power in the `ht_friends` network. There are a few new things going on here, so I'll walk through each line:
 
-* `activate(nodes) %>% mutate(name = 1:nrow(.N()))` adds a column called `name` to the nodes, which consists of the number 1 to the number of nodes.
-* `G %>% ggraph()`: Hopefully you know what these lines do---take our graph (`G`) and make it into a `ggraph`
+* `activate(nodes) |> mutate(name = 1:nrow(.N()))` adds a column called `name` to the nodes, which starts at the number one and goes to the number of nodes (`nrow(.N())`).
+* `G |> ggraph()`: Hopefully you know what these lines do---take our graph (`G`) and make it into a `ggraph`
 * `geom_edge_fan(aes(alpha = stat(index)))`: This is where things get a bit tricky. This creates edges using the `geom_edge_fan` style and sets the transparency (`alpha`) of an edge so that it's darkest closest to the `to` node. It's for helping us see the direction of directed edges.
 * `geom_node_point(color = '#ceb888', size = 5)`: This should look familiar. It just sets a color and size for nodes
 * `geom_node_text(aes(label = name))`: This adds the labels we created earlier to the nodes. It just makes it easier for us to talk about individual nodes.
 * `scale_edge_alpha('Edge direction', guide = 'edge_direction')`: Finally, this lets you adjust the legend. We'll see more examples today and later, but the `scale_` funcions let you change the title of a legend, change the colors used, etc.
 
-```{r}
-G <- ht_friends %>%
-  as_tbl_graph() %>%
-  activate(nodes) %>%
+```{r warning=F, message=F}
+G <- ht_friends |> 
+  upgrade_graph() |>
+  as_tbl_graph() |>
+  activate(nodes) |>
   mutate(name=1:nrow(.N()))
 
-G %>%
+G |>
   ggraph() + 
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(color = '#ceb888', size = 5) + 
@@ -60,9 +61,9 @@ G %>%
 Now, let's show the degree centrality by changing the size of nodes. Here is the total degree centrality. Note that we are using `mutate` to create the `degree` column, and then using it to adjust the size of the nodes.
 
 ```{r}
-G %>%
-  activate(nodes) %>%
-  mutate(degree = centrality_degree(mode = 'all')) %>%
+G |>
+  activate(nodes) |>
+  mutate(degree = centrality_degree(mode = 'all')) |>
   ggraph() +
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(aes(size = degree), color = '#ceb888') +
@@ -74,9 +75,9 @@ G %>%
 Note how this changes when we show indegree/popularity
 
 ```{r}
-G %>%
-  activate(nodes) %>%
-  mutate(degree = centrality_degree(mode = 'in')) %>%
+G |>
+  activate(nodes) |>
+  mutate(degree = centrality_degree(mode = 'in')) |>
   ggraph() +
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(aes(size = degree), color = '#ceb888') +
@@ -105,14 +106,14 @@ YOUR ANSWER HERE
 
 This measure tries to capture how much a node is literally in the center of a graph. It is a measure of the average distance to each other node.
 
-Note that there is a `mode` parameter that can be either 'out' for only outgoing distance, 'in', for incoming distance, or 'all', which we use, which ignores whether an edge is incoming or outgoing.
+Note that there is a `mode` parameter that can be either 'out' for only outgoing distance, 'in', for incoming distance, or 'all', which we use, which ignores whether an edge is incoming or outgoing. If we don't include the parameter, then it uses the default, which is 'all'.
 
 ```{r}
 
-G %>%
-  activate(nodes) %>%
-  mutate(centrality = centrality_closeness()) %>%
-  mutate(centrality = replace_na(centrality, 0)) %>%
+G |>
+  activate(nodes) |>
+  mutate(centrality = centrality_closeness(mode='all')) |>
+  mutate(centrality = replace_na(centrality, 0)) |>
   ggraph() + 
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(aes(size = centrality), color = '#ceb888') +
@@ -145,9 +146,9 @@ YOUR ANSWER HERE
 After you've done that, turn this into a code block (by adding "{r}" after the backticks) and then find the bug in the code below so that it colors the nodes based on betweenness centrality (So far we've been using the size of the node to represent centrality, but color is the other common way of showing centrality).
 
 ```
-G %>%
-  activate(nodes) %>%
-  mutate(centrality = centrality_betweenness()) %>%
+G |>
+  activate(nodes) |>
+  mutate(centrality = centrality_betweenness()) |>
   ggraph() +
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(color = centrality, size = 4) +
@@ -164,9 +165,9 @@ This is actually the basis of Google's original search algorithm, and is part of
 
 
 ```{r}
-G %>%
-  activate(nodes) %>%
-  mutate(centrality = centrality_eigen(directed = TRUE)) %>%
+G |>
+  activate(nodes) |>
+  mutate(centrality = centrality_eigen(directed = TRUE)) |>
   ggraph() +
   geom_edge_fan(aes(alpha = stat(index))) + # This does gradients for directed edges
   geom_node_point(aes(size = centrality), color = '#ceb888') +
