@@ -88,7 +88,7 @@ G %>%
 
 Note the line `mutate(religion = as_factor(religion))` Try commenting out that line and running the code again. 
 
-You should get an error that is something like `A continuous variable can not be mapped to shape`. This is saying that in this data `religion` is a number and it doesn't make much sense to map a number to a shape, because usually numbers are ordered while shapes are unordered. So, we have to add the `mutate` step to change the `religion` variable type using `as_factor` which changes how R sees it from a number to a `factor` - in other words, a category (which is what religion really is, anyway!).
+You should get an error that is something like `A continuous variable can not be mapped to shape`. This is saying that in this data `religion` is a number and it doesn't make much sense to map a number to a shape, because usually numbers are ordered while shapes are unordered. So, we have to add the `mutate` step to change the `religion` variable type using `as_factor` which changes how R sees it from a number to a `factor`---in other words, a category (which is what religion really is, anyway!).
 
 ### Exercise
 
