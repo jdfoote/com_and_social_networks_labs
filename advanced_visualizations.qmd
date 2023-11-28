@@ -1,9 +1,8 @@
 ---
-title: "Advanced ggraph techniques"
-author: "Your Name Here"
-output: word_document
+title: "Advanced Visualization Techniques"
+author: "Jeremy Foote"
+format: pdf
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -118,8 +117,8 @@ G %>%
   mutate(age_diff = abs(.N()$birthdate[from] - .N()$birthdate[to])) %>%
   ggraph(layout = 'stress') + 
   geom_edge_fan(aes(color = age_diff), alpha = .4) +
-  geom_node_point(aes(color=birthdate), size = 3) + 
-  scale_edge_color_viridis()
+  geom_node_point(aes(color=birthdate), size = 3) +
+  scale_edge_color_gradient2()
 ```
 
 This is tricky to understand.
